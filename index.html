@@ -7,51 +7,99 @@
     <style>
       body {
         font-family: Arial, sans-serif;
+        background-color: #b4bcd4;
+        margin: 0;
+        padding: 0;
       }
+      h2 {
+        color: #333;
+      }
+
       .filter-section {
+        max-width: 300px;
         margin: 20px;
+        padding: 20px;
+        background-color: #b4bcd4;
+        border-radius: 8px;
       }
+
       .filter-section label {
-        margin-right: 10px;
+        margin-top: 10px;
+        display: block;
       }
+
       .filter-section select,
       .filter-section input {
+        width: 100%;
         padding: 5px;
         margin: 5px 0;
+        border-radius: 4px;
+        border: 1px solid #5c5c5c;
+        background-color: #dbdde6;
       }
+
       .coin-list {
         max-width: 600px;
-        margin: 20px auto;
-        text-align: center;
-      }
-      .coin-item {
         margin: 10px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+      }
+
+      .coin-item {
+        font-size: 16px;
+        margin-bottom: px;
+        padding: 5px;
+      }
+
+      .coin-item a {
+        text-decoration: none;
+        color: #2c3e50;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .coin-item a:hover {
+        color: #1abc9c;
+      }
+
+      .coin-list p {
+        font-size: 16px;
+        color: #333;
+      }
+
+      @media (max-width: 768px) {
+        .coin-list {
+          max-width: 100%;
+        }
+        .filter-section {
+          max-width: 100%;
+        }
       }
     </style>
   </head>
   <body>
     <div class="filter-section">
-      <h2>Filters</h2>
-      <label for="yearFilter">Year (from-until):</label>
-      <input type="number" id="yearFrom" placeholder="From" />
-      <input type="number" id="yearUntil" placeholder="Until" />
+      <p>
+        <label for="yearFilter">Year (from-until):</label>
+        <input type="number" id="yearFrom" placeholder="From" />
+        <input type="number" id="yearUntil" placeholder="Until" />
+      </p>
 
-      <label for="countryFilter">Country:</label>
-      <select id="countryFilter">
-        <option value="">Select Country</option>
-        <!-- Countries will be populated dynamically -->
-      </select>
+      <p>
+        <label for="countryFilter">Country:</label>
+        <select id="countryFilter">
+          <option value="">Select Country</option>
+          <!-- Countries will be populated dynamically -->
+        </select>
+      </p>
 
-      <label for="priceFilter">Selling Price (from-until):</label>
-      <input type="number" id="priceFrom" placeholder="From" />
-      <input type="number" id="priceUntil" placeholder="Until" />
+      <p>
+        <label for="priceFilter">Selling Price (from-until):</label>
+        <input type="number" id="priceFrom" placeholder="From" />
+        <input type="number" id="priceUntil" placeholder="Until" />
+      </p>
 
       <button id="resetFilters">Reset Filters</button>
     </div>
-
+    <hr style="border-color: #00000047" />
     <div class="coin-list" id="coinList"></div>
 
     <script>
@@ -102,7 +150,7 @@
             const coinItem = document.createElement("div");
             coinItem.classList.add("coin-item");
             coinItem.innerHTML = `
-              <a href="coin.html?id=${coin.id}">Coin ${coin.id}</a>
+              <a href="coin.html?id=${coin.id}">${coin.id} - ${coin.country} (${coin.year})</a>
             `;
             coinList.appendChild(coinItem);
           });
