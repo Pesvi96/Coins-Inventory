@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coins List</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .filter-section {
+        margin: 20px;
+      }
+      .filter-section label {
+        margin-right: 10px;
+      }
+      .filter-section select,
+      .filter-section input {
+        padding: 5px;
+        margin: 5px 0;
+      }
+      .coin-list {
+        max-width: 600px;
+        margin: 20px auto;
+        text-align: center;
+      }
+      .coin-item {
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="filter-section">
+      <h2>Filters</h2>
+      <label for="yearFilter">Year (from-until):</label>
+      <input type="number" id="yearFrom" placeholder="From" />
+      <input type="number" id="yearUntil" placeholder="Until" />
+
+      <label for="countryFilter">Country:</label>
+      <select id="countryFilter">
+        <option value="">Select Country</option>
+        <!-- Countries will be populated dynamically -->
+      </select>
+
+      <label for="priceFilter">Selling Price (from-until):</label>
+      <input type="number" id="priceFrom" placeholder="From" />
+      <input type="number" id="priceUntil" placeholder="Until" />
+
+      <button id="resetFilters">Reset Filters</button>
+    </div>
+
+    <div class="coin-list" id="coinList"></div>
+
+    <script>
+      let coinData = [];
+
+      // Fetch coin data from the external JSON file
+      fetch("coins.json")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          coinData = data.coins;
+          populateCountrySelect();
+          displayCoins(coinData);
+        })
+        .catch((error) => console.error("Error loading coin data:", error));
+
+      const countrySelect = document.getElementById("countryFilter");
+      const yearFrom = document.getElementById("yearFrom");
+      const yearUntil = document.getElementById("yearUntil");
+      const priceFrom = document.getElementById("priceFrom");
+      const priceUntil = document.getElementById("priceUntil");
+      const resetButton = document.getElementById("resetFilters");
+
+      // Populate country dropdown dynamically
+      function populateCountrySelect() {
+        const countries = [...new Set(coinData.map((coin) => coin.country))];
+        countries.forEach((country) => {
+          const option = document.createElement("option");
+          option.value = country;
+          option.textContent = country;
+          countrySelect.appendChild(option);
+        });
+      }
+
+      // Function to display coins as hyperlinks
+      function displayCoins(filteredCoins) {
+        const coinList = document.getElementById("coinList");
+        coinList.innerHTML = ""; // Clear previous list
+
+        if (filteredCoins.length === 0) {
+          coinList.innerHTML = "<p>No coins match your filters.</p>";
+        } else {
+          filteredCoins.forEach((coin) => {
+            const coinItem = document.createElement("div");
+            coinItem.classList.add("coin-item");
+            coinItem.innerHTML = `
+              <a href="coin.html?id=${coin.id}">Coin ${coin.id}</a>
+            `;
+            coinList.appendChild(coinItem);
+          });
+        }
+      }
+
+      // Apply filters
+      function applyFilters() {
+        const yearStart = parseInt(yearFrom.value) || 0;
+        const yearEnd = parseInt(yearUntil.value) || Infinity;
+        const priceStart = parseFloat(priceFrom.value) || 0;
+        const priceEnd = parseFloat(priceUntil.value) || Infinity;
+        const selectedCountry = countrySelect.value;
+
+        const filteredCoins = coinData.filter((coin) => {
+          const coinYear = coin.year;
+          const coinPrice = parseFloat(coin.selling_price) || 0;
+
+          return (
+            coinYear >= yearStart &&
+            coinYear <= yearEnd &&
+            coinPrice >= priceStart &&
+            coinPrice <= priceEnd &&
+            (selectedCountry ? coin.country === selectedCountry : true)
+          );
+        });
+
+        displayCoins(filteredCoins);
+      }
+
+      // Reset filters
+      function resetFilters() {
+        yearFrom.value = "";
+        yearUntil.value = "";
+        priceFrom.value = "";
+        priceUntil.value = "";
+        countrySelect.value = "";
+        displayCoins(coinData); // Reset to show all coins
+      }
+
+      // Event listeners for filters
+      yearFrom.addEventListener("input", applyFilters);
+      yearUntil.addEventListener("input", applyFilters);
+      priceFrom.addEventListener("input", applyFilters);
+      priceUntil.addEventListener("input", applyFilters);
+      countrySelect.addEventListener("change", applyFilters);
+      resetButton.addEventListener("click", resetFilters);
+    </script>
+  </body>
+</html>

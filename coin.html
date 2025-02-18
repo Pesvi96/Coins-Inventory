@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coin Details</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .coin-details {
+        max-width: 600px;
+        margin: 20px auto;
+        text-align: center;
+      }
+      .coin-details img {
+        max-width: 200px;
+        display: block;
+        margin: auto;
+      }
+      .back-link {
+        display: block;
+        margin: 20px 0;
+        text-align: center;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" class="back-link">Back</a>
+    <div class="coin-details" id="coinDetails"></div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const coinId = urlParams.get("id");
+
+      fetch("coins.json")
+        .then((response) => response.json())
+        .then((data) => {
+          const coin = data.coins.find((c) => c.id == coinId);
+          if (coin) {
+            document.getElementById("coinDetails").innerHTML = `
+                        <h1>Coin ${coin.id}</h1>
+                        <img src="${coin.photo}" alt="Coin Image">
+                        <p><strong>Country:</strong> ${coin.country}</p>
+                        <p><strong>Year:</strong> ${coin.year}</p>
+                        <p><strong>Currency:</strong> ${coin.currency}</p>
+                        <p><strong>Coin Original Price:</strong> ${coin.original_price}</p>
+                        <p><strong>Text:</strong> ${coin.text}</p>
+                        <p><strong>Selling Approximate Price:</strong> ${coin.selling_price}</p>
+                        <p><strong>Comment:</strong> ${coin.comment}</p>
+                        <p><strong>Amount:</strong> ${coin.amount}</p>
+                    `;
+          } else {
+            document.getElementById("coinDetails").innerHTML =
+              "<p>Coin not found.</p>";
+          }
+        })
+        .catch((error) => console.error("Error loading coin details:", error));
+    </script>
+  </body>
+</html>

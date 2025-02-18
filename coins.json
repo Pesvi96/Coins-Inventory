@@ -1,0 +1,52 @@
+{
+  "coins": [
+    {
+      "id": 1,
+      "country": "სსრკ",
+      "year": 1999,
+      "currency": "რუბლი",
+      "original_price": "50 cents",
+      "text": "Liberty - In God We Trust",
+      "photo": "./images/1.jpg",
+      "selling_price": 200,
+      "comment": "Rare edition, good condition",
+      "amount": 1
+    },
+    {
+      "id": 2,
+      "country": "სსრკ",
+      "year": 2002,
+      "currency": "რუბლი",
+      "original_price": "1 Euro",
+      "text": "Bundesrepublik Deutschland",
+      "photo": "./images/2.jpg",
+      "selling_price": 100,
+      "comment": "Common coin, used condition",
+      "amount": 3
+    },
+    {
+      "id": 2,
+      "country": "ჩეხეთი",
+      "year": 2002,
+      "currency": "Euro",
+      "original_price": "1 Euro",
+      "text": "Bundesrepublik Deutschland",
+      "photo": "./images/2.jpg",
+      "selling_price": 100,
+      "comment": "Common coin, used condition",
+      "amount": 3
+    },
+    {
+      "id": 2,
+      "country": "ესპანეთი",
+      "year": 2002,
+      "currency": "Euro",
+      "original_price": "1 Euro",
+      "text": "Bundesrepublik Deutschland",
+      "photo": "./images/2.jpg",
+      "selling_price": 100,
+      "comment": "Common coin, used condition",
+      "amount": 3
+    }
+  ]
+}
