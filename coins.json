@@ -12,6 +12,19 @@
       "selling_price": 200,
       "comment": "",
       "amount": 1
+    },
+    {
+      "id": 2,
+      "country": "Russia",
+      "year": 1914,
+      "currency": "Kopek",
+      "original_price": "15 kopeks",
+      "text": "",
+      "photo_front": "./images/2-front.jpg",
+      "photo_back": "./images/2-back.jpg",
+      "selling_price": 1,
+      "comment": "",
+      "amount": 1
     }
   ]
 }
