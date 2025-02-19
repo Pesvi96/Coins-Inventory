@@ -26,6 +26,8 @@ def get_valid_int(prompt):
         value = input(prompt).strip()
         if value.isdigit():
             return int(value)
+        elif value == "":
+            return 1
         print("Invalid input. Please enter a valid number.")
 
 
@@ -44,6 +46,7 @@ def main():
 
         # Get user input for the new coin
         new_id = get_next_id(data["coins"])
+        print(f"Current ID is {new_id}")
         country = input("Please indicate country: ").strip()
         currency = input("Please indicate currency: ").strip()
         year = get_valid_int("Please indicate year: ")
@@ -71,7 +74,7 @@ def main():
         # Add to the database and save
         data["coins"].append(new_coin)
         save_json(file_path, data)
-        print(f"Coin ID {new_id} added successfully!")
+        print(f"Coin ID {new_id} added successfully!\n\n")
 
 
 if __name__ == "__main__":
