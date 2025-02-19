@@ -41,16 +41,17 @@
           const coin = data.coins.find((c) => c.id == coinId);
           if (coin) {
             document.getElementById("coinDetails").innerHTML = `
-                        <h1>Coin ${coin.id}</h1>
-                        <img src="${coin.photo}" alt="Coin Image">
-                        <p><strong>Country:</strong> ${coin.country}</p>
-                        <p><strong>Year:</strong> ${coin.year}</p>
-                        <p><strong>Currency:</strong> ${coin.currency}</p>
-                        <p><strong>Coin Original Price:</strong> ${coin.original_price}</p>
-                        <p><strong>Text:</strong> ${coin.text}</p>
-                        <p><strong>Selling Approximate Price:</strong> ${coin.selling_price}</p>
-                        <p><strong>Comment:</strong> ${coin.comment}</p>
-                        <p><strong>Amount:</strong> ${coin.amount}</p>
+                        <h1>მონეტა ${coin.id}</h1>
+                        <img src="${coin.photo_front}" alt="Coin Image Front">
+                        <img src="${coin.photo_back}" alt="Coin Image Back">
+                        <p><strong>ქვეყანა:</strong> ${coin.country}</p>
+                        <p><strong>გამოშვების წელი:</strong> ${coin.year}</p>
+                        <p><strong>ვალუტა:</strong> ${coin.currency}</p>
+                        <p><strong>მონეტის საწყისი ღირებულება:</strong> ${coin.original_price}</p>
+                        <p><strong>წარწერა:</strong> ${coin.text}</p>
+                        <p><strong>საშუალო საბაზრო ფასი:</strong> ${coin.selling_price}</p>
+                        <p><strong>კომენტარი:</strong> ${coin.comment}</p>
+                        <p><strong>რაოდენობა:</strong> ${coin.amount}</p>
                     `;
           } else {
             document.getElementById("coinDetails").innerHTML =
