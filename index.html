@@ -150,7 +150,7 @@
             const coinItem = document.createElement("div");
             coinItem.classList.add("coin-item");
             coinItem.innerHTML = `
-              <a href="coin.html?id=${coin.id}">${coin.id} - ${coin.country}, ${coin.original_price} ${coin.currency} (${coin.year})</a>
+              <a href="coin.html?id=${coin.id}">${coin.id} - ${coin.country}, ${coin.original_price} (${coin.year})</a>
             `;
             coinList.appendChild(coinItem);
           });
